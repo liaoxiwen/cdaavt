@@ -1,13 +1,10 @@
 import { ImportDeclaration, Project, SourceFile } from 'ts-morph';
-import { isFileExists, writeJson } from './utils/common';
+import { isFileExists, writeJson } from '../utils/common';
 
 function getAst() {
     let project = new Project();
     const jsConfigPath = 'jsconfig.json';
     const tsConfigPath = 'tsconfig.json';
-    // const result = getCompilerOptionsFromTsConfig('cdaavt.config.json');
-    // console.log(result);
-    // const cdaavtConfigPath = 'cdaavt.config.json';
     if (isFileExists(jsConfigPath)) {
         project = new Project({
             tsConfigFilePath: jsConfigPath,
@@ -64,6 +61,7 @@ function astAnalysis(sourceFiles: SourceFile[]): IFileNodes[] {
 interface IDependencyNodes {
     [key: string]: {
         path: string;
+        weight: number;
         children?: IDependencyNodes;
     }
 }
@@ -72,37 +70,113 @@ function dependencyAnalyz(dependencyNodes: IFileNodes[]) {
     const dealedNodes: IDependencyNodes = {};
     dependencyNodes.forEach(node => {
         const keys = Object.keys(dealedNodes);
-        if(keys.indexOf(node.path) === -1) {
+        if (keys.indexOf(node.path) === -1) {
             dealedNodes[node.path] = {
                 path: node.path,
+                weight: 0,
             }
         }
         node.children.forEach(child => {
-            if(keys.indexOf(child) === -1) {
+            if (keys.indexOf(child) === -1) {
                 dealedNodes[child] = {
                     path: child,
+                    weight: 1,
                     children: {
                         [node.path]: {
                             path: node.path,
+                            weight: 0,
                         },
                     },
                 };
-            }else {
+            } else {
                 const children = dealedNodes[child].children || {};
                 const insert = {
                     [node.path]: {
                         path: node.path,
+                        weight: 0,
                     },
                 };
-                dealedNodes[child].children = {...children, ...insert};
+                dealedNodes[child].weight += 1;
+                dealedNodes[child].children = { ...children, ...insert };
             }
         });
     });
-    writeJson('analyz-result.json', dealedNodes);
+    // writeJson('analyz-result.json', dealedNodes);
+    return dealedNodes;
+}
+
+function caculateWeight(nodes: IDependencyNodes) {
+    for (const nodeKey in nodes) {
+        const caculate = (key: string, visited: string[]) => {
+            if (visited.indexOf(key) !== -1) {
+                return 0;
+            }
+            visited.push(key);
+            if (!nodes[key].children) {
+                return 0;
+            }
+            let weight = nodes[key].weight;
+            for (const childKey in nodes[key].children) {
+                weight += caculate(childKey, visited);
+            }
+            return weight;
+        }
+        nodes[nodeKey].weight = caculate(nodeKey, []);
+    }
+    writeJson('analyz-result.json', nodes);
+}
+
+interface INodes {
+    x: number;
+    y: number;
+    id: string;
+    label: string;
+    size: number;
+    color: string;
+}
+
+interface IEdges {
+    sourceID: string;
+    targetID: string;
+}
+
+function transEchartsNodesAndEdges(dealedNodes: IDependencyNodes) {
+    const nodes: INodes[] = [];
+    const edges: IEdges[] = [];
+    const number = Object.keys(dealedNodes).length;
+    for (const nodeKey in dealedNodes) {
+        const x = parseInt((Math.random() * number).toString());
+        const y = parseInt((Math.random() * number).toString());
+        const size = 5;
+        const node: INodes = {
+            x,
+            y,
+            id: nodeKey,
+            label: nodeKey,
+            size,
+            color: `#${('00000'+(Math.random()*0x1000000<<0).toString(16)).slice(-6)}`,
+        };
+        nodes.push(node);
+
+        for(const childKey in dealedNodes[nodeKey].children) {
+            const edge: IEdges = {
+                sourceID: childKey,
+                targetID: nodeKey,
+            };
+            edges.push(edge);
+        }
+    }
+    const echartsData = {
+        nodes,
+        edges
+    };
+    writeJson('echarts-data.json', echartsData);
 }
 
 export default function depAnalysis() {
     const sourceFiles = getAst();
     const dependencyNodes = astAnalysis(sourceFiles);
-    dependencyAnalyz(dependencyNodes);
+    const dealedNodes = dependencyAnalyz(dependencyNodes);
+    caculateWeight(dealedNodes);
+    transEchartsNodesAndEdges(dealedNodes);
 }
