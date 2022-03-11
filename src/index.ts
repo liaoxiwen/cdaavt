@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import depAnalysis from './denpendency-analyz';
+import depAnalysis from './dependency-analyz';
 import { initConfig } from './init';
 
 const program = new Command();

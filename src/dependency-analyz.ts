@@ -1,5 +1,5 @@
-import { ImportDeclaration, Project, SourceFile  } from 'ts-morph';
-import { isFileExists } from './utils/common';
+import { ImportDeclaration, Project, SourceFile } from 'ts-morph';
+import { isFileExists, writeJson } from './utils/common';
 
 function getAst() {
     let project = new Project();
@@ -44,20 +44,65 @@ function analysisImportDeclarations(nodes: ImportDeclaration[]) {
     return moduleSpecifierValues;
 }
 
-function astAnalysis(sourceFiles: SourceFile[]) {
-    const res = sourceFiles.map(item => {
+interface IFileNodes {
+    path: string;
+    children: string[];
+}
+
+function astAnalysis(sourceFiles: SourceFile[]): IFileNodes[] {
+    return sourceFiles.map(item => {
         const importDeclarations = item.getImportDeclarations();
         const filePath = item.getFilePath();
         const moduleSpecifierValues = analysisImportDeclarations(importDeclarations);
         return {
-            filePath,
-            moduleSpecifierValues
-        }
+            path: filePath,
+            children: moduleSpecifierValues,
+        };
     });
-    console.log(res);
+}
+
+interface IDependencyNodes {
+    [key: string]: {
+        path: string;
+        children?: IDependencyNodes;
+    }
+}
+
+function dependencyAnalyz(dependencyNodes: IFileNodes[]) {
+    const dealedNodes: IDependencyNodes = {};
+    dependencyNodes.forEach(node => {
+        const keys = Object.keys(dealedNodes);
+        if(keys.indexOf(node.path) === -1) {
+            dealedNodes[node.path] = {
+                path: node.path,
+            }
+        }
+        node.children.forEach(child => {
+            if(keys.indexOf(child) === -1) {
+                dealedNodes[child] = {
+                    path: child,
+                    children: {
+                        [node.path]: {
+                            path: node.path,
+                        },
+                    },
+                };
+            }else {
+                const children = dealedNodes[child].children || {};
+                const insert = {
+                    [node.path]: {
+                        path: node.path,
+                    },
+                };
+                dealedNodes[child].children = {...children, ...insert};
+            }
+        });
+    });
+    writeJson('analyz-result.json', dealedNodes);
 }
 
 export default function depAnalysis() {
     const sourceFiles = getAst();
-    astAnalysis(sourceFiles);
+    const dependencyNodes = astAnalysis(sourceFiles);
+    dependencyAnalyz(dependencyNodes);
 }
