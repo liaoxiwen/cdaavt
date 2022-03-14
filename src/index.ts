@@ -1,5 +1,6 @@
 import { Command } from 'commander';
-import depAnalysis from './dependency-analyz/index';
+// import depAnalysis from './dependency-analyz/index';
+import createReport from './visualization/html';
 import { initConfig } from './init';
 
 const program = new Command();
@@ -17,7 +18,8 @@ if (options.init) {
   initConfig();
 }
 if (options.run) {
-  depAnalysis();
+  // depAnalysis();
+  createReport();
 }
 
 

@@ -1,5 +1,5 @@
 import { ImportDeclaration, Project, SourceFile } from 'ts-morph';
-import { isFileExists, writeJson } from '../utils/common';
+import { isFileExists} from '../utils/common';
 
 function getAst() {
     let project = new Project();
@@ -123,7 +123,6 @@ function caculateWeight(nodes: IDependencyNodes) {
         }
         nodes[nodeKey].weight = caculate(nodeKey, []);
     }
-    writeJson('analyz-result.json', nodes);
 }
 
 interface INodes {
@@ -170,7 +169,7 @@ function transEchartsNodesAndEdges(dealedNodes: IDependencyNodes) {
         nodes,
         edges
     };
-    writeJson('echarts-data.json', echartsData);
+    return echartsData;
 }
 
 export default function depAnalysis() {
@@ -178,5 +177,5 @@ export default function depAnalysis() {
     const dependencyNodes = astAnalysis(sourceFiles);
     const dealedNodes = dependencyAnalyz(dependencyNodes);
     caculateWeight(dealedNodes);
-    transEchartsNodesAndEdges(dealedNodes);
+    return transEchartsNodesAndEdges(dealedNodes);
 }
