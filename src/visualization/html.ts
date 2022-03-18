@@ -1,4 +1,4 @@
-import dependencyAnalyz from '../dependency-analyz/index';
+import dependencyAnalyz from '../dependency-analysis/index';
 import { writeHtml } from '../utils/common';
 
 export default function createReport() {

@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import depAnalysis from './dependency-analyz/index';
+import depAnalysis from './dependency-analysis/index';
 // import createReport from './visualization/html';
 import { initConfig } from './init';
 
