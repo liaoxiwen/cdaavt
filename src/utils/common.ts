@@ -1,5 +1,4 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { IPathConfig } from './type';
 
 export function writeJson<T>(fileName: string, content: T): void {
     writeFileSync(fileName, JSON.stringify(content, null, 2));
@@ -15,25 +14,4 @@ export function readJson<T>(path: string): T {
 
 export function isFileExists(path: string): boolean {
     return existsSync(path);
-}
-
-export function dependencyFileAbslutePathAnalysis(modulePath: string, dependencyRelativePath: string, config: IPathConfig) {
-    const currentDirPathReg = /\.{1}\//;
-    const upperLevelDirPathReg = /\.{2}\//;
-    let realDependencyPath = dependencyRelativePath;
-    for(const key in config) {
-        const keyReg = new RegExp(key);
-        if(keyReg.test(dependencyRelativePath)) {
-            
-            return realDependencyPath;
-        }
-    }
-    // 先判断 ../ 后判断 ./
-    if(upperLevelDirPathReg.test(dependencyRelativePath)) {
-        return realDependencyPath;
-    }
-    if(currentDirPathReg.test(dependencyRelativePath)) {
-        return realDependencyPath;
-    }
-    return realDependencyPath;
 }

@@ -58,7 +58,6 @@
   },
   "dependencies": {
     "commander": "^9.0.0",
-    "enhanced-resolve": "^5.9.2",
     "ts-morph": "^14.0.0"
   }
 }

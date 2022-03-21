@@ -1,6 +1,7 @@
 import { readdirSync, statSync } from 'fs';
 import { join } from 'path';
 import { isFileExists, readJson } from '../utils/common';
+import { IPathConfig } from '../utils/type';
 
 function readProjectConfig() {
     let configPath;
@@ -15,11 +16,12 @@ function readProjectConfig() {
     return configPath ? readJson(configPath) as any : null;
 }
 
-function getFilesPath(paths: string[]): string[] {
+function getFilesPath(include: string[], exclude: string[]): string[] {
     const currentPath = process.cwd();
-    const dirPaths: string[] = paths.map(path => join(currentPath, path));
+    const includeDirPaths: string[] = include.map(path => join(currentPath, path));
+    const exlcudeDirPaths: string[] = exclude.map(path => join(currentPath, path));
 
-    const directorys: string[] = dirPaths;
+    const directorys: string[] = includeDirPaths;
     const files: string[] = [];
 
     for (let i = 0; i < directorys.length; i++) {
@@ -28,7 +30,7 @@ function getFilesPath(paths: string[]): string[] {
             readRes.forEach(r => {
                 const newPath = join(directorys[i], r);
                 const stat = statSync(newPath);
-                if (stat.isDirectory()) {
+                if (stat.isDirectory() && exlcudeDirPaths.indexOf(newPath) === -1) {
                     directorys.push(newPath);
                 } else {
                     files.push(newPath);
@@ -56,11 +58,26 @@ function classifyFiles(files: string[]) {
     }
 }
 
+function dealWildCard(paths: IPathConfig, baseUrl: string): IPathConfig {
+    const dealedPaths: IPathConfig = {};
+    const wildCardReg = /\*+/;
+    Object.keys(paths).forEach(key => {
+        const dealedKey = key.replace(wildCardReg, '');
+        dealedPaths[dealedKey] = paths[key].map(item => {
+            const absolutePath = join(process.cwd(), baseUrl, item);
+            return absolutePath.replace(wildCardReg, '');
+        });
+    });
+    return dealedPaths;
+}
+
 export default function () {
     const config = readProjectConfig();
-    const pathConfig = config.compilerOptions.paths ?? {};
+    const baseUrl = config.compilerOptions.baseUrl ?? '.';
+    const pathConfig = dealWildCard(config.compilerOptions.paths ?? {}, baseUrl);
     const includeConfig = config.include ?? [''];
-    const files = getFilesPath(includeConfig);
+    const excludeConfig = config.exclude;
+    const files = getFilesPath(includeConfig, excludeConfig);
     const classifiedFiles = classifyFiles(files);
     return {
         pathConfig,
