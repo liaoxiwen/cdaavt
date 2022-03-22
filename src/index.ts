@@ -12,7 +12,7 @@ program
 program.parse(process.argv);
 const options = program.opts();
 if (options.help) {
-  console.log('Help');
+  // console.log('Help');
 }
 if (options.init) {
   initConfig();
