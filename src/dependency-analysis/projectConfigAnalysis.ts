@@ -76,7 +76,7 @@ export default function () {
     const baseUrl = config.compilerOptions.baseUrl ?? '.';
     const pathConfig = dealWildCard(config.compilerOptions.paths ?? {}, baseUrl);
     const includeConfig = config.include ?? [''];
-    const excludeConfig = config.exclude;
+    const excludeConfig = config.exclude ?? [];
     const files = getFilesPath(includeConfig, excludeConfig);
     const classifiedFiles = classifyFiles(files);
     return {

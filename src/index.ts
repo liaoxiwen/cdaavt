@@ -1,25 +1,22 @@
 import { Command } from 'commander';
 import depAnalysis from './dependency-analysis/index';
-// import createReport from './visualization/html';
-import { initConfig } from './init';
 
 const program = new Command();
 program
-  .option('-h, --help', 'Print this help')
+  .version(`${require('../package.json').version}`, '-v --version')
+  .usage('[options]')
+  .command('cdaavt [options]')
+  .description('Use this tool => cdaavt -r');
+
+program
   .option('-r, --run', 'Run this tool')
-  .option('-i, --init', 'Init project');
+  .action((options) => {
+    if (options.run) {
+      depAnalysis();
+    }
+  });
 
 program.parse(process.argv);
-const options = program.opts();
-if (options.help) {
-  console.log('Help');
-}
-if (options.init) {
-  initConfig();
-}
-if (options.run) {
-  depAnalysis();
-  // createReport();
-}
+
 
 
