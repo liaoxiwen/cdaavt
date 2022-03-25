@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import depAnalysis from './dependency-analysis/index';
+import main from './main';
 
 const program = new Command();
 program
@@ -12,7 +12,7 @@ program
   .option('-r, --run', 'Run this tool')
   .action((options) => {
     if (options.run) {
-      depAnalysis();
+      main();
     }
   });
 

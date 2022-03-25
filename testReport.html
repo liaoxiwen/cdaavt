@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.js"></script>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <div style="display: none" id="echarts-data">{"nodes":[{"id":"commander","name":"commander","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/main.ts","name":"F:/graduation-project/cdaavt/src/main.ts","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts","name":"F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts","name":"F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/visualization/index.ts","name":"F:/graduation-project/cdaavt/src/visualization/index.ts","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/utils/common.ts","name":"F:/graduation-project/cdaavt/src/utils/common.ts","symbolSize":5},{"id":"ts-morph","name":"ts-morph","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/utils/index.tsx","name":"F:/graduation-project/cdaavt/src/utils/index.tsx","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/utils/type.ts","name":"F:/graduation-project/cdaavt/src/utils/type.ts","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/dependencyAnalysis/getAst.ts","name":"F:/graduation-project/cdaavt/src/dependencyAnalysis/getAst.ts","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts","name":"F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/dependencyAnalysis/dependencyAnalysis.ts","name":"F:/graduation-project/cdaavt/src/dependencyAnalysis/dependencyAnalysis.ts","symbolSize":5},{"id":"fs","name":"fs","symbolSize":5},{"id":"path","name":"path","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/visualization/dataProcessing.ts","name":"F:/graduation-project/cdaavt/src/visualization/dataProcessing.ts","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/visualization/html.ts","name":"F:/graduation-project/cdaavt/src/visualization/html.ts","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/index.ts","name":"F:/graduation-project/cdaavt/src/index.ts","symbolSize":5},{"id":"F:/graduation-project/cdaavt/src/dependencyAnalysis/impactScopeAnalysis.ts","name":"F:/graduation-project/cdaavt/src/dependencyAnalysis/impactScopeAnalysis.ts","symbolSize":5}],"edges":[{"source":"commander","target":"F:/graduation-project/cdaavt/src/index.ts"},{"source":"F:/graduation-project/cdaavt/src/main.ts","target":"F:/graduation-project/cdaavt/src/index.ts"},{"source":"F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts","target":"F:/graduation-project/cdaavt/src/main.ts"},{"source":"F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts","target":"F:/graduation-project/cdaavt/src/main.ts"},{"source":"F:/graduation-project/cdaavt/src/visualization/index.ts","target":"F:/graduation-project/cdaavt/src/main.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/common.ts","target":"F:/graduation-project/cdaavt/src/main.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/common.ts","target":"F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/common.ts","target":"F:/graduation-project/cdaavt/src/utils/index.tsx"},{"source":"ts-morph","target":"F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts"},{"source":"ts-morph","target":"F:/graduation-project/cdaavt/src/dependencyAnalysis/getAst.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/index.tsx","target":"F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/type.ts","target":"F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/type.ts","target":"F:/graduation-project/cdaavt/src/dependencyAnalysis/dependencyAnalysis.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/type.ts","target":"F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/type.ts","target":"F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/type.ts","target":"F:/graduation-project/cdaavt/src/utils/index.tsx"},{"source":"F:/graduation-project/cdaavt/src/utils/type.ts","target":"F:/graduation-project/cdaavt/src/visualization/dataProcessing.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/type.ts","target":"F:/graduation-project/cdaavt/src/visualization/html.ts"},{"source":"F:/graduation-project/cdaavt/src/utils/type.ts","target":"F:/graduation-project/cdaavt/src/visualization/index.ts"},{"source":"F:/graduation-project/cdaavt/src/dependencyAnalysis/getAst.ts","target":"F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts"},{"source":"F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts","target":"F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts"},{"source":"F:/graduation-project/cdaavt/src/dependencyAnalysis/dependencyAnalysis.ts","target":"F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts"},{"source":"fs","target":"F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts"},{"source":"fs","target":"F:/graduation-project/cdaavt/src/utils/common.ts"},{"source":"path","target":"F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts"},{"source":"path","target":"F:/graduation-project/cdaavt/src/utils/index.tsx"},{"source":"F:/graduation-project/cdaavt/src/visualization/dataProcessing.ts","target":"F:/graduation-project/cdaavt/src/visualization/index.ts"},{"source":"F:/graduation-project/cdaavt/src/visualization/html.ts","target":"F:/graduation-project/cdaavt/src/visualization/index.ts"}]}</div>
+        <div id="main" style="width: 100vw;height:100vh;"></div>
+        <script type="module">
+            const echartsData = JSON.parse(document.getElementById('echarts-data').innerText);
+            var chartDom = document.getElementById('main');
+            var myChart = echarts.init(chartDom);
+            var option;
+            myChart.hideLoading();
+            myChart.setOption(
+                (option = {
+                    title: {
+                        text: 'NPM Dependencies'
+                    },
+                    animationDurationUpdate: 1500,
+                    animationEasingUpdate: 'quinticInOut',
+                    series: [
+                        {
+                            type: 'graph',
+                            layout: 'force',
+                            // legendHoverLink: true,
+                            // progressiveThreshold: 700,
+                            draggable: true,
+                            data: echartsData.nodes,
+                            edges: echartsData.edges,
+                            force: {
+                                edgeLength: 5,
+                                repulsion: 20,
+                                gravity: 0.2
+                            },
+                            emphasis: {
+                                focus: 'adjacency',
+                                label: {
+                                    position: 'right',
+                                    show: true
+                                }
+                            },
+                        }
+                    ]
+                }),
+                true
+            );
+        </script>
+    </body>
+    </html>

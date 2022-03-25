@@ -1,8 +1,6 @@
-import dependencyAnalyz from '../dependency-analysis/index';
-import { writeHtml } from '../utils/common';
+import { IVisualData } from '../utils/type';
 
-export default function createReport() {
-    const echartsData = dependencyAnalyz();
+export default function createReport(echartsData: IVisualData) {
     const htmlString = `
     <!DOCTYPE html>
     <html lang="en">
@@ -30,27 +28,17 @@ export default function createReport() {
                     series: [
                         {
                             type: 'graph',
-                            layout: 'none',
-                            legendHoverLink: true,
+                            layout: 'force',
+                            // legendHoverLink: true,
                             // progressiveThreshold: 700,
-                            data: echartsData.nodes.map(function (node) {
-                                return {
-                                    x: node.x,
-                                    y: node.y,
-                                    id: node.id,
-                                    name: node.label,
-                                    symbolSize: node.size,
-                                    itemStyle: {
-                                    color: node.color
-                                    }
-                                };
-                            }),
-                            edges: echartsData.edges.map(function (edge) {
-                                return {
-                                    source: edge.sourceID,
-                                    target: edge.targetID
-                                };
-                            }),
+                            draggable: true,
+                            data: echartsData.nodes,
+                            edges: echartsData.edges,
+                            force: {
+                                edgeLength: 5,
+                                repulsion: 20,
+                                gravity: 0.2
+                            },
                             emphasis: {
                                 focus: 'adjacency',
                                 label: {
@@ -58,12 +46,6 @@ export default function createReport() {
                                     show: true
                                 }
                             },
-                            roam: true,
-                            lineStyle: {
-                                width: 1,
-                                curveness: 0.3,
-                                opacity: 0.7
-                            }
                         }
                     ]
                 }),
@@ -72,5 +54,5 @@ export default function createReport() {
         </script>
     </body>
     </html>`.trimLeft();
-    writeHtml('testReport.html', htmlString);
+    return htmlString;
 }

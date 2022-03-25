@@ -33,3 +33,21 @@ export interface IAnalysisRes {
 export interface IPathConfig {
     [key: string]: string[]
 }
+
+export interface INode {
+    id: string;
+    name: string;
+    symbolSize: number;
+    [key: string]: unknown;
+}
+
+export interface IEdge {
+    source: string;
+    target: string;
+}
+
+export interface IVisualData {
+    nodes: INode[];
+    edges: IEdge[];
+}
+

@@ -38,7 +38,7 @@ function getFilesPath(include: string[], exclude: string[]): string[] {
             });
         }
     }
-    return files;
+    return files.map(file => file.replace(/\\/g, '/'));
 }
 
 function classifyFiles(files: string[]) {
