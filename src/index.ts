@@ -2,18 +2,16 @@ import { Command } from 'commander';
 import main from './main';
 
 const program = new Command();
-program
-  .version(`${require('../package.json').version}`, '-v --version')
-  .usage('[options]')
-  .command('cdaavt [options]')
-  .description('Use this tool => cdaavt -r');
+program.name('cdaavt')
+  .description('Component dependency analysis and visualization tool')
+  .version(`${require('../package.json').version}`, '-v, --version.', "Cdaavt's version.");
 
 program
-  .option('-r, --run', 'Run this tool')
+  .option('-r, --run', 'Run this tool.')
+  .option('-o, --output <filename>', 'Output result.')
+  .option('-f, --format <format>', "Result format, includes 'json' and 'html'.")
   .action((options) => {
-    if (options.run) {
-      main();
-    }
+    main(options);
   });
 
 program.parse(process.argv);

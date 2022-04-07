@@ -1,3 +1,16 @@
+export interface ICDAAVTOPTIONS {
+    run?: boolean;
+    output?: string;
+    format?: string;
+}
+
+export enum ENUM_FORMAT {
+    JSON = 'json',
+    HTML = 'html',
+    OUTPUT = 'testReport',
+    FORMAT = 'json',
+}
+
 export enum SUFFIX {
     TS = '.ts',
     TSX = '.tsx',
@@ -23,6 +36,7 @@ export interface ICdaavtConfig {
 
 export interface IModuleDependency {
     module: string;
+    exports: string[];
     dependency: string[];
 }
 
