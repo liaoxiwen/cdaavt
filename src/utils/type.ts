@@ -34,10 +34,15 @@ export interface ICdaavtConfig {
     exclude: string[];
 }
 
+export interface IImportValue {
+    path: string;
+    name: string;
+}
 export interface IModuleDependency {
     module: string;
     exports: string[];
     dependency: string[];
+    dependencyDetail: IImportValue[];
 }
 
 export interface IAnalysisRes {

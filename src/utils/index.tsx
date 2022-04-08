@@ -3,31 +3,31 @@ import { IPathConfig, SUFFIX } from "./type";
 import { isFileExists } from './common';
 
 function suffixMatch(path: string): string {
-    if(isFileExists(`${path}${SUFFIX.JS}`)) {
+    if (isFileExists(`${path}${SUFFIX.JS}`)) {
         return `${path}${SUFFIX.JS}`;
     }
-    if(isFileExists(`${path}${SUFFIX.JSX}`)) {
+    if (isFileExists(`${path}${SUFFIX.JSX}`)) {
         return `${path}${SUFFIX.JSX}`;
     }
-    if(isFileExists(`${path}${SUFFIX.TS}`)) {
+    if (isFileExists(`${path}${SUFFIX.TS}`)) {
         return `${path}${SUFFIX.TS}`;
     }
-    if(isFileExists(`${path}${SUFFIX.TSX}`)) {
+    if (isFileExists(`${path}${SUFFIX.TSX}`)) {
         return `${path}${SUFFIX.TSX}`;
     }
-    if(isFileExists(join(path, SUFFIX.INDEXJS))) {
+    if (isFileExists(join(path, SUFFIX.INDEXJS))) {
         return join(path, SUFFIX.INDEXJS);
     }
-    if(isFileExists(join(path, SUFFIX.INDEXJSX))) {
+    if (isFileExists(join(path, SUFFIX.INDEXJSX))) {
         return join(path, SUFFIX.INDEXJSX);
     }
-    if(isFileExists(join(path, SUFFIX.INDEXTS))) {
+    if (isFileExists(join(path, SUFFIX.INDEXTS))) {
         return join(path, SUFFIX.INDEXTS);
     }
-    if(isFileExists(join(path, SUFFIX.INDEXTSX))) {
+    if (isFileExists(join(path, SUFFIX.INDEXTSX))) {
         return join(path, SUFFIX.INDEXTSX);
     }
-    if(isFileExists(path)) {
+    if (isFileExists(path)) {
         return path;
     }
     return path;
@@ -62,5 +62,6 @@ export function dependencyFileAbslutePathAnalysis(modulePath: string, dependency
         realDependencyPath = join(dealedModule, dependencyRelativePath);
         return suffixMatch(realDependencyPath);
     }
+    realDependencyPath = realDependencyPath;
     return realDependencyPath;
 }
