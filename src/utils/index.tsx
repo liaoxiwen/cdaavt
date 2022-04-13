@@ -46,6 +46,7 @@ export function dependencyFileAbslutePathAnalysis(modulePath: string, dependency
             return suffixMatch(realDependencyPath);
         }
     }
+
     // 先判断 ../ 后判断 ./
     if (upperLevelDirPathReg.test(dependencyRelativePath)) {
         const splitRes = modulePath.split('/');
@@ -56,6 +57,8 @@ export function dependencyFileAbslutePathAnalysis(modulePath: string, dependency
         realDependencyPath = join(dealedModule, dealedDependencyRelativePath);
         return suffixMatch(realDependencyPath);
     }
+    
+    // 判断 ./
     if (currentDirPathReg.test(dependencyRelativePath)) {
         const splitRes = modulePath.split('/');
         const dealedModule = splitRes.slice(0, splitRes.length - 1).join('/');

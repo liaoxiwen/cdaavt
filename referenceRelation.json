@@ -1,0 +1,247 @@
+{
+  "commander": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/index.ts",
+      "name": [
+        "Command"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/main.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/index.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ],
+  "ora": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/main.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ],
+  "chalk": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/main.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/main.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/main.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/visualization/index.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/main.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/utils/type.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/main.ts",
+      "name": [
+        "ICDAAVTOPTIONS",
+        "ENUM_FORMAT"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts",
+      "name": [
+        "IConfig",
+        "IImportValue",
+        "IAstAnalysisRes"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/dependencyAnalysis/dependencyAnalysis.ts",
+      "name": [
+        "IAstAnalysisRes",
+        "IAnalysisRes",
+        "IFilesExports",
+        "IReferenceRelation"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts",
+      "name": [
+        "IConfig"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts",
+      "name": [
+        "IPathConfig"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/utils/index.tsx",
+      "name": [
+        "IPathConfig",
+        "SUFFIX"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/visualization/dataProcessing.ts",
+      "name": [
+        "IAnalysisRes",
+        "IEdge",
+        "IVisualData"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/visualization/html.ts",
+      "name": [
+        "IVisualData"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/visualization/index.ts",
+      "name": [
+        "IAnalysisRes"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/utils/common.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/main.ts",
+      "name": [
+        "writeHtml",
+        "writeJson"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/dependencyAnalysis/dependencyAnalysis.ts",
+      "name": [
+        "writeJson"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts",
+      "name": [
+        "isFileExists",
+        "readJson"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/utils/index.tsx",
+      "name": [
+        "isFileExists"
+      ]
+    }
+  ],
+  "ts-morph": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts",
+      "name": [
+        "SourceFile",
+        "SyntaxKind",
+        "ObjectLiteralExpression"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/dependencyAnalysis/getAst.ts",
+      "name": [
+        "Project",
+        "SourceFile"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/utils/index.tsx": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts",
+      "name": [
+        "dependencyFileAbslutePathAnalysis"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/dependencyAnalysis/getAst.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/dependencyAnalysis/dependencyAnalysis.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ],
+  "fs": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts",
+      "name": [
+        "readdirSync",
+        "statSync"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/utils/common.ts",
+      "name": [
+        "readFileSync",
+        "writeFileSync",
+        "existsSync"
+      ]
+    }
+  ],
+  "path": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts",
+      "name": [
+        "join"
+      ]
+    },
+    {
+      "path": "F:/graduation-project/cdaavt/src/utils/index.tsx",
+      "name": [
+        "join"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/visualization/dataProcessing.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/visualization/index.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ],
+  "F:/graduation-project/cdaavt/src/visualization/html.ts": [
+    {
+      "path": "F:/graduation-project/cdaavt/src/visualization/index.ts",
+      "name": [
+        "default"
+      ]
+    }
+  ]
+}

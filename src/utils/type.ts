@@ -34,21 +34,6 @@ export interface ICdaavtConfig {
     exclude: string[];
 }
 
-export interface IImportValue {
-    path: string;
-    name: string;
-}
-export interface IModuleDependency {
-    module: string;
-    exports: string[];
-    dependency: string[];
-    dependencyDetail: IImportValue[];
-}
-
-export interface IAnalysisRes {
-    [key: string]: string[];
-}
-
 export interface IPathConfig {
     [key: string]: string[]
 }
@@ -59,6 +44,41 @@ export interface INode {
     symbolSize: number;
     [key: string]: unknown;
 }
+
+export interface IImportValue {
+    path: string;
+    names: string[];
+}
+
+export interface INeedFindRealDependency {
+    path: string;
+    name: string;
+    dependencys: string[];
+}
+
+export interface IAstAnalysisRes {
+    module: string;
+    exports: string[];
+    dependency: string[];
+    dependencyDetail: IImportValue[];
+}
+
+export interface IFilesImports {
+    [key: string]: string[];
+}
+
+export interface IFilesExports {
+    [key: string]: string[];
+}
+
+export interface IReferenceRelation {
+    [key: string]: IImportValue[];
+}
+
+export interface IAnalysisRes {
+    [key: string]: string[];
+}
+
 
 export interface IEdge {
     source: string;

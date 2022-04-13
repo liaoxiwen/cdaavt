@@ -13,7 +13,7 @@ function readProjectConfig() {
     if (isFileExists(tsconfigPath)) {
         configPath = tsconfigPath;
     }
-    return configPath ? readJson(configPath) as any : null;
+    return configPath ? readJson(configPath) as any : {};
 }
 
 function getFilesPath(include: string[], exclude: string[]): string[] {
@@ -73,11 +73,12 @@ function dealWildCard(paths: IPathConfig, baseUrl: string): IPathConfig {
 
 export default function () {
     const config = readProjectConfig();
-    const baseUrl = config.compilerOptions.baseUrl ?? '.';
+    const baseUrl = config.compilerOptions?.baseUrl ?? '.';
     const includeConfig = config.include ?? [''];
     const excludeConfig = config.exclude ?? [];
-    const pathConfig = dealWildCard(config.compilerOptions.paths ?? {}, baseUrl);
+    const pathConfig = dealWildCard(config.compilerOptions?.paths ?? {}, baseUrl);
     const files = getFilesPath(includeConfig, excludeConfig);
+
     const classifiedFiles = classifyFiles(files);
     return {
         pathConfig,
