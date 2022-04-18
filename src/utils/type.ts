@@ -51,6 +51,7 @@ export interface IImportValue {
 }
 
 export interface INeedFindRealDependency {
+    // [key: string]: string[];
     path: string;
     name: string;
     dependencys: string[];
@@ -72,7 +73,9 @@ export interface IFilesExports {
 }
 
 export interface IReferenceRelation {
-    [key: string]: IImportValue[];
+    [key: string]: {
+        [key: string]: string[];
+    };
 }
 
 export interface IAnalysisRes {

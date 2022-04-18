@@ -1,6 +1,5 @@
 import {
     IAstAnalysisRes,
-    IAnalysisRes,
     IFilesExports,
     IReferenceRelation,
     IFilesImports,
@@ -39,15 +38,11 @@ function getReferenceRelation(astAnalysisRes: IAstAnalysisRes[]): IReferenceRela
             const names = detail.names;
 
             if (referenceRelationKeys.indexOf(path) === -1) {
-                referenceRelation[path] = [{
-                    path: module,
-                    names
-                }];
+                referenceRelation[path] = {
+                    [module]: names
+                };
             } else {
-                referenceRelation[path].push({
-                    path: module,
-                    names,
-                });
+                referenceRelation[path][module] = names;
             }
         });
     });
@@ -58,27 +53,27 @@ function getReferenceRelation(astAnalysisRes: IAstAnalysisRes[]): IReferenceRela
 function findRealDependencyModule(referenceRelation: IReferenceRelation, filesExports: IFilesExports, filesImports: IFilesImports) {
     const needFindRealDependency: INeedFindRealDependency[] = [];
 
-    for (const module in referenceRelation) {
-        const exports = filesExports[module];
+    for (const relation in referenceRelation) {
+        const exports = filesExports[relation];
         if (exports) {
-            const moduleInfoes = referenceRelation[module];
-            referenceRelation[module] = moduleInfoes.filter(info => {
-                const { path, names } = info;
-                info.names = names.filter(name => {
-                    if (exports.indexOf(name) === -1) {
+            const moduleInfoes = referenceRelation[relation];
+            const moduleNames = Object.keys(moduleInfoes);
+            moduleNames.forEach(name => {
+                const dependencyModules = moduleInfoes[name];
+                moduleInfoes[name] = dependencyModules.filter(module => {
+                    if (exports.indexOf(module) === -1) {
                         needFindRealDependency.push({
-                            path,
-                            name,
-                            dependencys: filesImports[module]
+                            path: name,
+                            name: module,
+                            dependencys: filesImports[relation]
                         });
                         return false;
                     }
                     return true;
                 });
-                if (info.names.length) {
-                    return true;
+                if (moduleInfoes[name].length === 0) {
+                    delete moduleInfoes[name];
                 }
-                return false;
             });
         }
     }
@@ -90,29 +85,27 @@ function findRealDependencyModule(referenceRelation: IReferenceRelation, filesEx
             if (dependencyExports) {
                 if (dependencyExports.indexOf(name) !== -1) {
                     const newReferenceRelation = {
-                        path: path,
-                        names: [name]
-                    }
+                        [path]: [name]
+                    };
                     if (referenceRelation[dependency]) {
-                        referenceRelation[dependency].push(newReferenceRelation);
+                        if (referenceRelation[dependency][path]) {
+                            referenceRelation[dependency][path].push(name);
+                        } else {
+                            referenceRelation[dependency][path] = [name];
+                        }
                     } else {
-                        referenceRelation[dependency] = [newReferenceRelation];
+                        referenceRelation[dependency] = newReferenceRelation;
                     }
                 }
             }
         });
     });
-
-    
 }
 
-export default function (astAnalysisRes: IAstAnalysisRes[]): IAnalysisRes {
-    const analysisRes: IAnalysisRes = {};
+export default function (astAnalysisRes: IAstAnalysisRes[]): IReferenceRelation {
     const filesImports = getFilesImports(astAnalysisRes);
     const filesExports = getFilesExports(astAnalysisRes);
     const referenceRelation = getReferenceRelation(astAnalysisRes);
-    console.log(referenceRelation);
     findRealDependencyModule(referenceRelation, filesExports, filesImports);
-    console.log(referenceRelation);
-    return analysisRes;
+    return referenceRelation;
 }

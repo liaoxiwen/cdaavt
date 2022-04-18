@@ -10,18 +10,20 @@ const DEFAULTIMPORTVALUE = 'default';
  * export class className{}
  * export interface interfaceName{}
  * export enum enumName{}
+ * export const constName
  */
 function getExportDefineDeclarationsInfo(sourceFile: SourceFile, exports: string[]) {
     const functionDeclarations = sourceFile.getFunctions();
     const interfaceDeclarations = sourceFile.getInterfaces();
     const enumDeclarations = sourceFile.getEnums();
-    const calssDeclarations = sourceFile.getClasses();
+    const classDeclarations = sourceFile.getClasses();
     const declarations = [
         ...functionDeclarations,
         ...interfaceDeclarations,
         ...enumDeclarations,
-        ...calssDeclarations
-    ]
+        ...classDeclarations
+    ];
+
     declarations.forEach(declaration => {
         const name = declaration.getName() || DEFAULTIMPORTVALUE;
         let exportName = name;
@@ -39,6 +41,14 @@ function getExportDefineDeclarationsInfo(sourceFile: SourceFile, exports: string
         if (isExport) {
             exports.push(exportName);
         }
+    });
+
+    const exportedVariableStatements = sourceFile.getVariableStatements().filter(statement => statement.hasExportKeyword());
+    exportedVariableStatements.forEach(statement => {
+        const declarations = statement.getDeclarations();
+        declarations.forEach(declaration => {
+            exports.push(declaration.getName());
+        });
     });
 }
 
