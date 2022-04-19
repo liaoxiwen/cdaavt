@@ -86,6 +86,14 @@ export interface IAnalysisRes {
 export interface IEdge {
     source: string;
     target: string;
+    value?: number;
+    tooltip?: {
+        formatter: string | Function;
+    },
+    label?: {
+        show?: boolean,
+        formatter?: string | Function;
+    }
 }
 
 export interface IVisualData {

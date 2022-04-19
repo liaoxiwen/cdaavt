@@ -16,14 +16,13 @@ const LOG_TEXT = {
 };
 
 export default function (options: ICDAAVTOPTIONS) {
-    let depAnalysisRes = {};
     const spinner = ora(chalk.green(LOG_TEXT.START_TEXT)).start();
     spinner.text = LOG_TEXT.ANALYSISING_CONFIG_TEXT;
     const config = projectConfigAnalysis();
     spinner.text = LOG_TEXT.ANALYSIS_CONFIG_SUCCESS_TEXT;
 
     spinner.text = LOG_TEXT.ANALYSISING_DEPENDENCY_TEXT;
-    depAnalysisRes = depAnalysis(config);
+    const depAnalysisRes = depAnalysis(config);
 
     if (options.output) {
         spinner.text = LOG_TEXT.VISUALIZING_RESULT_TEXT;
@@ -36,7 +35,7 @@ export default function (options: ICDAAVTOPTIONS) {
             writeJson(fileName, depAnalysisRes);
         }
     } else {
-        // console.log(depAnalysisRes);
+        console.log(depAnalysisRes);
     }
     spinner.succeed(chalk.green(LOG_TEXT.ANALYSISING_SUCCESS_TEXT));
     spinner.stop();

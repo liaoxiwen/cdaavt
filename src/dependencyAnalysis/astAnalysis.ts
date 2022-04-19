@@ -81,7 +81,7 @@ function getExportAssignmentsInfo(sourceFile: SourceFile, exports: string[]) {
         const expression = exportAssignment.getExpression();
         const expressionKind = expression.getKind();
         if (expressionKind === SyntaxKind.Identifier) {
-            exports.push(expression.getText());
+            exports.push(DEFAULTIMPORTVALUE);
         }
         if (expressionKind === SyntaxKind.ObjectLiteralExpression) {
             const properties = (expression as ObjectLiteralExpression).getProperties();
