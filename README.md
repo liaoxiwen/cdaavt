@@ -18,4 +18,4 @@ npm install cdaavt --save
 将指令加入`package.json`文件的`scripts`字段中    
 
 ## 可视化效果：
-![visualization](./public/READMEIMG/visualization.png)
+![visualization](./visualization.png)
