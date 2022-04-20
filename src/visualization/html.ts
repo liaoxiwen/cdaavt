@@ -94,7 +94,7 @@ export default function createReport(echartsData: IVisualData) {
                             emphasis: {
                                 focus: 'adjacency',
                                 label: {
-                                    position: 'right',
+                                    position: 'bottom',
                                     show: true
                                 }
                             },

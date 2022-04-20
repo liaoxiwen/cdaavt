@@ -2,6 +2,7 @@ export interface ICDAAVTOPTIONS {
     run?: boolean;
     output?: string;
     format?: string;
+    path?:  string;
 }
 
 export enum ENUM_FORMAT {
@@ -51,7 +52,6 @@ export interface IImportValue {
 }
 
 export interface INeedFindRealDependency {
-    // [key: string]: string[];
     path: string;
     name: string;
     dependencys: string[];
@@ -82,6 +82,10 @@ export interface IAnalysisRes {
     [key: string]: string[];
 }
 
+export enum ENUM_TYPE {
+    SCOPE_TYPE = 'scope',
+    GLOBAL_TYPE = 'golbal',
+}
 
 export interface IEdge {
     source: string;

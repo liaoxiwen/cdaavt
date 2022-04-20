@@ -1,14 +1,18 @@
 import { IReferenceRelation, IEdge, IVisualData } from "../utils/type";
 
-export default function (data: IReferenceRelation, files: string[]): IVisualData {
+function dealPath(path: string): string {
+    const cwd = process.cwd().replace(/\\/g, '/');
+    return path.replace(cwd, '');
+}
+
+export default function (data: IReferenceRelation, filePaths: string[]): IVisualData {
     const SYMBOLSIZE = 5;
-    const modules = Array.from(new Set([...Object.keys(data), ...files]));
-    const nodes = modules.map(module => {
-        const dependencys = data[module] ?? {};
+    const nodes = filePaths.map(path => {
+        const dependencys = data[path] ?? {};
         const len = Object.keys(dependencys).length;
         return {
-            id: module,
-            name: module,
+            id: dealPath(path),
+            name: dealPath(path),
             symbolSize: SYMBOLSIZE + len % SYMBOLSIZE + parseInt(String(len / SYMBOLSIZE)),
         }
     });
@@ -18,8 +22,8 @@ export default function (data: IReferenceRelation, files: string[]): IVisualData
         Object.keys(dependencys).forEach(dependencyKey => {
             const dependencyNames = dependencys[dependencyKey];
             edges.push({
-                source: key,
-                target: dependencyKey,
+                source: dealPath(key),
+                target: dealPath(dependencyKey),
                 tooltip: {
                     formatter: `module: ${(dependencyNames.join(','))}`,
                 },

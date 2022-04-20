@@ -1,19 +1,19 @@
-// import dependencyAnalysis from '.'
+import { IReferenceRelation } from '../utils/type';
 
-// export default function(fileName: string) {
-//     const dependencyMap = dependencyAnalysis();
-//     let res = dependencyMap[fileName];
-//     const visited: string[] = [];
-//     for(let i = 0; i < res.length; i++) {
-//         // 防止出现循环引用，造成死循环
-//         if(visited.indexOf(res[i]) !== -1) {
-//             continue;
-//         }
-//         visited.push(res[i]);
-
-//         if(dependencyMap[res[i]]?.length) {
-//             res = res.concat(dependencyMap[res[i]]);
-//         }
-//     }
-//     return res;
-// }
+export default function (depAnalysisRes: IReferenceRelation, fileName: string): IReferenceRelation {
+    let res: IReferenceRelation = {};
+    const visitedPath: string[] = [];
+    const cursionFunc = (path: string) => {
+        const dependency = depAnalysisRes[path];
+        if (visitedPath.indexOf(path) === -1) {
+            visitedPath.push(path);
+            if (dependency && dependency !== {}) {
+                res[path] = dependency;
+                const dependencyKeys = Object.keys(dependency);
+                dependencyKeys.forEach(key => cursionFunc(key));
+            }
+        }
+    }
+    cursionFunc(fileName);
+    return res;
+}
