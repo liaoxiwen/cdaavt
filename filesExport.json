@@ -1,0 +1,70 @@
+{
+  "F:/graduation-project/cdaavt/src/index.ts": [],
+  "F:/graduation-project/cdaavt/src/main.ts": [
+    "default"
+  ],
+  "F:/graduation-project/cdaavt/src/dependencyAnalysis/astAnalysis.ts": [
+    "default"
+  ],
+  "F:/graduation-project/cdaavt/src/dependencyAnalysis/dependencyAnalysis.ts": [
+    "default"
+  ],
+  "F:/graduation-project/cdaavt/src/dependencyAnalysis/getAst.ts": [
+    "default"
+  ],
+  "F:/graduation-project/cdaavt/src/dependencyAnalysis/impactScopeAnalysis.ts": [],
+  "F:/graduation-project/cdaavt/src/dependencyAnalysis/index.ts": [
+    "default",
+    "ICDAAVTOPTIONS",
+    "ENUM_FORMAT",
+    "SUFFIX",
+    "IConfig",
+    "ICdaavtConfig",
+    "IPathConfig",
+    "INode",
+    "IImportValue",
+    "IAstAnalysisRes",
+    "IFilesExports",
+    "IReferenceRelation",
+    "IAnalysisRes",
+    "IEdge",
+    "IVisualData"
+  ],
+  "F:/graduation-project/cdaavt/src/projectConfigAnalysis/index.ts": [
+    "default"
+  ],
+  "F:/graduation-project/cdaavt/src/utils/common.ts": [
+    "writeJson",
+    "writeHtml",
+    "readJson",
+    "isFileExists"
+  ],
+  "F:/graduation-project/cdaavt/src/utils/index.tsx": [
+    "dependencyFileAbslutePathAnalysis"
+  ],
+  "F:/graduation-project/cdaavt/src/utils/type.ts": [
+    "ICDAAVTOPTIONS",
+    "ENUM_FORMAT",
+    "SUFFIX",
+    "IConfig",
+    "ICdaavtConfig",
+    "IPathConfig",
+    "INode",
+    "IImportValue",
+    "IAstAnalysisRes",
+    "IFilesExports",
+    "IReferenceRelation",
+    "IAnalysisRes",
+    "IEdge",
+    "IVisualData"
+  ],
+  "F:/graduation-project/cdaavt/src/visualization/dataProcessing.ts": [
+    "default"
+  ],
+  "F:/graduation-project/cdaavt/src/visualization/html.ts": [
+    "default"
+  ],
+  "F:/graduation-project/cdaavt/src/visualization/index.ts": [
+    "default"
+  ]
+}

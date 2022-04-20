@@ -1,69 +1,122 @@
-import dependencyAnalyz from '../dependency-analyz/index';
-import { writeHtml } from '../utils/common';
+import { IVisualData } from '../utils/type';
 
-export default function createReport() {
-    const echartsData = dependencyAnalyz();
+export default function createReport(echartsData: IVisualData) {
     const htmlString = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.js"></script>
-        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            function getNames(data, name) {
+                const flagNodes = [];
+                let res = [];
+                const cursionFunc = (name) => {
+                    if(flagNodes.indexOf(name) === -1) {
+                        flagNodes.push(name);
+                        res.push(name);
+                        const nameEdges = data.filter(item => item.source === name);
+                        if (nameEdges.length) {
+                            const edgeTargets = nameEdges.map(edge => {
+                                res.push(\`\${edge.source} > \${edge.target}\`);
+                                return edge.target
+                            });
+                            edgeTargets.forEach(target => {
+                                cursionFunc(target);
+                            });
+                        }
+                    }
+                }
+                cursionFunc(name);
+                return res;
+            }
+        </script>
     </head>
 
     <body>
-        <div style="display: none" id="echarts-data">${JSON.stringify(echartsData)}</div>
         <div id="main" style="width: 100vw;height:100vh;"></div>
         <script type="module">
-            const echartsData = JSON.parse(document.getElementById('echarts-data').innerText);
-            var chartDom = document.getElementById('main');
-            var myChart = echarts.init(chartDom);
-            var option;
+            const data = 
+                ${JSON.stringify(echartsData)};
+            const chartDom = document.getElementById('main');
+            const myChart = echarts.init(chartDom);
+            let selectedNames = [];
+            let option;
             myChart.hideLoading();
+            myChart.on('click', { dataType: 'node' }, (params) => {
+                const { dataIndex, seriesId, name, dataType } = params;
+                myChart.dispatchAction({
+                    type: 'unselect',
+                    seriesId,
+                    dataType: 'node',
+                    name: selectedNames,
+                });
+                myChart.dispatchAction({
+                    type: 'unselect',
+                    seriesId,
+                    dataType: 'edge',
+                    name: selectedNames,
+                });
+                selectedNames = getNames(data.edges, name);
+                console.log(selectedNames);
+                myChart.dispatchAction({
+                    type: 'select',
+                    seriesId,
+                    dataType: 'node',
+                    name: selectedNames,
+                });
+                myChart.dispatchAction({
+                    type: 'select',
+                    seriesId,
+                    dataType: 'edge',
+                    name: selectedNames,
+                });
+            });
             myChart.setOption(
                 (option = {
-                    title: {
-                        text: 'NPM Dependencies'
-                    },
                     animationDurationUpdate: 1500,
                     animationEasingUpdate: 'quinticInOut',
                     series: [
                         {
                             type: 'graph',
-                            layout: 'none',
-                            legendHoverLink: true,
+                            layout: 'force',
+                            roam: true,
+                            edgeSymbol: ['', 'arrow'],
+                            edgeSymbolSize: 10,
+                            // legendHoverLink: true,
                             // progressiveThreshold: 700,
-                            data: echartsData.nodes.map(function (node) {
-                                return {
-                                    x: node.x,
-                                    y: node.y,
-                                    id: node.id,
-                                    name: node.label,
-                                    symbolSize: node.size,
-                                    itemStyle: {
-                                    color: node.color
-                                    }
-                                };
-                            }),
-                            edges: echartsData.edges.map(function (edge) {
-                                return {
-                                    source: edge.sourceID,
-                                    target: edge.targetID
-                                };
-                            }),
+                            draggable: true,
+                            data: data.nodes,
+                            edges: data.edges,
+                            force: {
+                                repulsion: 200,
+                                edgeLenght: 10,
+                            },
                             emphasis: {
                                 focus: 'adjacency',
                                 label: {
-                                    position: 'right',
+                                    position: 'bottom',
                                     show: true
                                 }
                             },
-                            roam: true,
-                            lineStyle: {
-                                width: 1,
-                                curveness: 0.3,
-                                opacity: 0.7
-                            }
+                            selectedMode: 'multiple',
+                            select: {
+                                disabled: false,
+                                label: {
+                                    show: true,
+                                    position: 'bottom',
+                                },
+                                itemStyle: {
+                                    color: 'red',
+                                },
+                                lineStyle: {
+                                    color: 'red',
+                                    width: 5
+                                },
+                                edgeLabel: {
+                                    show: true,
+                                    color: 'blue'
+                                }
+                            },
                         }
                     ]
                 }),
@@ -72,5 +125,5 @@ export default function createReport() {
         </script>
     </body>
     </html>`.trimLeft();
-    writeHtml('testReport.html', htmlString);
+    return htmlString;
 }

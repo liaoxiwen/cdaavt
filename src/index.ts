@@ -1,25 +1,20 @@
 import { Command } from 'commander';
-// import depAnalysis from './dependency-analyz/index';
-import createReport from './visualization/html';
-import { initConfig } from './init';
+import main from './main';
 
 const program = new Command();
+program.name('cdaavt')
+  .description('Component dependency analysis and visualization tool')
+  .version(`${require('../package.json').version}`, '-v, --version.', "Cdaavt's version.");
+
 program
-  .option('-h, --help', 'Print this help')
-  .option('-r, --run', 'Run this tool')
-  .option('-i, --init', 'Init project');
+  .option('-r, --run', 'Run this tool.')
+  .option('-o, --output <filename>', 'Output result.')
+  .option('-f, --format <format>', "Result format, includes 'json' and 'html'.")
+  .option('-p, --path <path>', 'Impact Scope Analysis.')
+  .action((options) => {
+    main(options);
+  });
 
 program.parse(process.argv);
-const options = program.opts();
-if (options.help) {
-  console.log('Help');
-}
-if (options.init) {
-  initConfig();
-}
-if (options.run) {
-  // depAnalysis();
-  createReport();
-}
 
 
