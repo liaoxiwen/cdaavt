@@ -116,7 +116,6 @@ function getImportValues(sourceFile: SourceFile, config: IConfig) {
         const moduleSpeciferAbsoluteValue =
             dependencyFileAbslutePathAnalysis(modulePath, moduleSpeciferValue, config.pathConfig)
                 .replace(/\\/g, '/');
-
         // 获取导入节点的模块名称
         const defaultImport = importDeclaration.getDefaultImport();
         if (defaultImport) {

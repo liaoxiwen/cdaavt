@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, statSync } from 'fs';
 
 export function writeJson<T>(fileName: string, content: T): void {
     writeFileSync(fileName, JSON.stringify(content, null, 2));
@@ -14,4 +14,9 @@ export function readJson<T>(path: string): T {
 
 export function isFileExists(path: string): boolean {
     return existsSync(path);
+}
+
+export function isDirectory(path: string): boolean {
+    const stat = statSync(path);
+    return stat.isDirectory();
 }

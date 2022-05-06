@@ -82,8 +82,6 @@ export default function createReport(echartsData: IVisualData) {
                             roam: true,
                             edgeSymbol: ['', 'arrow'],
                             edgeSymbolSize: 10,
-                            // legendHoverLink: true,
-                            // progressiveThreshold: 700,
                             draggable: true,
                             data: data.nodes,
                             edges: data.edges,
