@@ -1,38 +1,7 @@
 import { IVisualData } from '../utils/type';
 
 export default function createReport(echartsData: IVisualData) {
-    const htmlString = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.js"></script>
-        <script>
-            function getNames(data, name) {
-                const flagNodes = [];
-                let res = [];
-                const cursionFunc = (name) => {
-                    if(flagNodes.indexOf(name) === -1) {
-                        flagNodes.push(name);
-                        res.push(name);
-                        const nameEdges = data.filter(item => item.source === name);
-                        if (nameEdges.length) {
-                            const edgeTargets = nameEdges.map(edge => {
-                                res.push(\`\${edge.source} > \${edge.target}\`);
-                                return edge.target
-                            });
-                            edgeTargets.forEach(target => {
-                                cursionFunc(target);
-                            });
-                        }
-                    }
-                }
-                cursionFunc(name);
-                return res;
-            }
-        </script>
-    </head>
-
-    <body>
+  const htmlString = `
         <div id="main" style="width: 100vw;height:100vh;"></div>
         <script type="module">
             const data = 
@@ -120,8 +89,6 @@ export default function createReport(echartsData: IVisualData) {
                 }),
                 true
             );
-        </script>
-    </body>
-    </html>`.trimLeft();
-    return htmlString;
+        </script>`;
+  return htmlString;
 }

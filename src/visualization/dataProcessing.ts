@@ -1,11 +1,11 @@
-import { IReferenceRelation, IEdge, IVisualData } from "../utils/type";
+import { IEdge, IVisualData } from "../utils/type";
 
 function dealPath(path: string): string {
     const cwd = process.cwd().replace(/\\/g, '/');
     return path.replace(cwd, '');
 }
 
-export default function (data: IReferenceRelation, filePaths: string[]): IVisualData {
+export default function (data: any, filePaths: string[]): IVisualData {
     const SYMBOLSIZE = 5;
     const nodes = filePaths.map(path => {
         const dependencys = data[path] ?? {};
