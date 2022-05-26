@@ -4,13 +4,9 @@ import dataProcessing from './dataProcessing';
 import createHtml from './html';
 import createTableReport from './listHtml';
 
-export default function(
-  data: IReferenceRelation,
-  finalData: IReferenceRelation,
-  files: string[]
-): string {
-  const visualData = dataProcessing(data, files);
-  return `
+export default function(data: IReferenceRelation, finalData: IReferenceRelation, files: string[]): string {
+	const visualData = dataProcessing(data, files);
+	return `
     <!DOCTYPE html>
     <html>
 
@@ -31,16 +27,13 @@ export default function(
             padding: 0;
             color: #333
         }
-
         #overview {
             padding: 20px 30px
         }
-
         td,
         th {
             padding: 5px 10px
         }
-
         table {
             margin: 30px;
             width: calc(100% - 60px);
@@ -49,40 +42,33 @@ export default function(
             border: 1px solid #ddd;
             border-spacing: 0px;
         }
-
         th {
             font-weight: 400;
             font-size: medium;
             text-align: left;
             cursor: pointer
         }
-
         tr:last-child td {
             border-bottom: none
         }
-
         tr td:first-child,
         tr td:last-child {
             color: #9da0a4
         }
-
         #overview.bg-0,
         tr.bg-0 th {
             color: #468847;
             background: #dff0d8;
             border-bottom: 1px solid #d6e9c6
         }
-
         tr.bg-0 th:hover {
             background: darkgray;
             color: white;
         }
-
         tr td:hover {
             background-color: darkgray;
             color: white;
         }
-
         td {
             border-bottom: 1px solid #ddd
         }

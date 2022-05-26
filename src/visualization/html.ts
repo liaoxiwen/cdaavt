@@ -1,7 +1,7 @@
 import { IVisualData } from '../utils/type';
 
 export default function createReport(echartsData: IVisualData) {
-  const htmlString = `
+	const htmlString = `
         <div id="main" style="width: 100vw;height:100vh;"></div>
         <script type="module">
             const data = 
@@ -90,5 +90,5 @@ export default function createReport(echartsData: IVisualData) {
                 true
             );
         </script>`;
-  return htmlString;
+	return htmlString;
 }
